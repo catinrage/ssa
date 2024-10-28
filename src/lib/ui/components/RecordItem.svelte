@@ -37,7 +37,6 @@
   let registered = $state(isGroup);
 
   let registeringTool = $state(false);
-  let updatingGroup = $state(false);
 
   const totalUsage = $derived.by(() => {
     return Object.values(props.record.usage).reduce((total, usage) => total + usage, 0);
@@ -91,41 +90,19 @@
       FINISH: data?.durability?.finish ?? 0,
     };
     props.record.price = data!.price;
-    if (data) {
-      $updateGroupForm.price = data.price;
-      $updateGroupForm.durability = data.durability!;
-      $updateGroupForm.id = data.id;
-      setTimeout(() => {
-        isUpdateGroupFormTainted = false;
-      });
-    }
   }
 
   function openRegisterWindow() {
-    if (isGroup) {
-      updatingGroup = true;
-    } else {
-      registeringTool = true;
-    }
+    if (!isGroup) registeringTool = true;
   }
 
   function closeRegisterWindow() {
-    if (isGroup) {
-      if (isUpdateGroupFormTainted) {
-        if (confirm('آیا مطمئنید که می‌خواهید از این صفحه خارج شوید؟')) {
-          updatingGroup = false;
-        }
-      } else {
-        updatingGroup = false;
-      }
-    } else {
-      if (isRegisterFormTainted) {
-        if (confirm('آیا مطمئنید که می‌خواهید از این صفحه خارج شوید؟')) {
-          registeringTool = false;
-        }
-      } else {
+    if (isRegisterFormTainted) {
+      if (confirm('آیا مطمئنید که می‌خواهید از این صفحه خارج شوید؟')) {
         registeringTool = false;
       }
+    } else {
+      registeringTool = false;
     }
   }
 
@@ -137,7 +114,6 @@
         method: 'DELETE',
       });
       if (response.ok) {
-        updatingGroup = false;
         projectManager.groups = projectManager.groups.filter(
           (group) => group.id !== props.record.id,
         );
@@ -156,30 +132,6 @@
   if (isGroup) {
     fetchGroupData();
   }
-
-  const {
-    form: updateGroupForm,
-    enhance: updateGroupFormEnhance,
-    errors: updateGroupFormErrors,
-    tainted: updateGroupFormTainted,
-  } = superForm(defaults(zod(updateGroupSchema)), {
-    dataType: 'json',
-    validators: zod(updateGroupSchema),
-    async onUpdate({ result }) {
-      if (result.type === 'success') {
-        await fetchGroupData();
-        updatingGroup = false;
-        setTimeout(() => {
-          confirmToastManager.pop();
-        }, 100);
-      }
-    },
-    warnings: {
-      duplicateId: false,
-    },
-  });
-
-  let isUpdateGroupFormTainted = $state(false);
 
   const {
     form: registerToolForm,
@@ -204,19 +156,6 @@
   });
 
   let isRegisterFormTainted = $state(false);
-
-  $effect(() => {
-    if ($updateGroupFormTainted?.price) isUpdateGroupFormTainted = true;
-    if (
-      $updateGroupFormTainted?.durability?.rough ||
-      $updateGroupFormTainted?.durability?.drilling ||
-      $updateGroupFormTainted?.durability?.faceMilling ||
-      $updateGroupFormTainted?.durability?.semiFinish ||
-      $updateGroupFormTainted?.durability?.finish
-    ) {
-      isUpdateGroupFormTainted = true;
-    }
-  });
 
   $effect(() => {
     if ($registerToolFormTainted?.price) isRegisterFormTainted = true;
@@ -280,15 +219,30 @@
     class="eng flex h-full w-14 shrink-0 flex-col items-center justify-center border-b border-l border-zinc-200/50"
   >
     {#if isGroup}
-      <iconify-icon
-        class="text-lg text-zinc-500"
-        icon="fluent-mdl2:task-group-mirrored"
-        use:tippy={{
-          content: (props.record as ModelSetupSheetToolGroup).tools
-            .map((tool) => tool.name)
-            .join(', '),
-        }}
-      ></iconify-icon>
+      <div class="flex flex-col gap-2">
+        <iconify-icon
+          class="text-lg text-zinc-500"
+          icon="fluent-mdl2:task-group-mirrored"
+          use:tippy={{
+            content: (props.record as ModelSetupSheetToolGroup).tools
+              .map((tool) => tool.name)
+              .join(', '),
+          }}
+        ></iconify-icon>
+        <!-- svelte-ignore a11y_click_events_have_key_events -->
+        <!-- svelte-ignore a11y_no_static_element_interactions -->
+        <div
+          aria-label="split"
+          class="cursor-pointer text-xl duration-100 hover:text-rose-500"
+          use:tippy={{ content: 'باز کردن گروه' }}
+          onclick={async (event) => {
+            event.stopPropagation();
+            await deleteGroup();
+          }}
+        >
+          <iconify-icon icon="ph:split-horizontal"></iconify-icon>
+        </div>
+      </div>
     {:else}
       <SoloCheckBox bind:checked={isSelected} />
     {/if}
@@ -317,71 +271,97 @@
   </div>
   <div
     class="eng flex h-full w-32 shrink-0 flex-col justify-center border-b border-l border-zinc-200/50 px-4"
-    class:bg-rose-50={props.record.usage.ROUGH && !props.record.durability.ROUGH}
-    class:bg-accent-50={props.record.usage.ROUGH && props.record.durability.ROUGH}
+    class:bg-rose-50={!isGroup &&
+      props.record.usage.ROUGH &&
+      !props.record.durability.ROUGH}
+    class:bg-accent-50={!isGroup &&
+      props.record.usage.ROUGH &&
+      props.record.durability.ROUGH}
   >
     <span class:opacity-40={!props.record.usage.ROUGH}
       >{Helper.Time.convertSecondsToHHMMSS(props.record.usage.ROUGH)}</span
     >
-    <span class="text-accent-500" class:opacity-40={!props.record.usage.ROUGH}
-      >{Helper.Time.convertSecondsToHHMMSS(props.record.durability.ROUGH * 60)}</span
-    >
+    {#if !isGroup}
+      <span class="text-accent-500" class:opacity-40={!props.record.usage.ROUGH}
+        >{Helper.Time.convertSecondsToHHMMSS(props.record.durability.ROUGH * 60)}</span
+      >
+    {/if}
   </div>
   <div
     class="eng flex h-full w-32 shrink-0 flex-col justify-center border-b border-l border-zinc-200/50 px-4"
-    class:bg-rose-50={props.record.usage.DRILLING && !props.record.durability.DRILLING}
-    class:bg-accent-50={props.record.usage.DRILLING && props.record.durability.DRILLING}
+    class:bg-rose-50={!isGroup &&
+      props.record.usage.DRILLING &&
+      !props.record.durability.DRILLING}
+    class:bg-accent-50={!isGroup &&
+      props.record.usage.DRILLING &&
+      props.record.durability.DRILLING}
   >
     <span class:opacity-40={!props.record.usage.DRILLING}
       >{Helper.Time.convertSecondsToHHMMSS(props.record.usage.DRILLING)}</span
     >
-    <span class="text-accent-500" class:opacity-40={!props.record.usage.DRILLING}
-      >{Helper.Time.convertSecondsToHHMMSS(props.record.durability.DRILLING * 60)}</span
-    >
+    {#if !isGroup}
+      <span class="text-accent-500" class:opacity-40={!props.record.usage.DRILLING}
+        >{Helper.Time.convertSecondsToHHMMSS(props.record.durability.DRILLING * 60)}</span
+      >
+    {/if}
   </div>
   <div
     class="eng flex h-full w-40 shrink-0 flex-col justify-center border-b border-l border-zinc-200/50 px-4"
-    class:bg-rose-50={props.record.usage.FACE_MILLING &&
+    class:bg-rose-50={!isGroup &&
+      props.record.usage.FACE_MILLING &&
       !props.record.durability.FACE_MILLING}
-    class:bg-accent-50={props.record.usage.FACE_MILLING &&
+    class:bg-accent-50={!isGroup &&
+      props.record.usage.FACE_MILLING &&
       props.record.durability.FACE_MILLING}
   >
     <span class:opacity-40={!props.record.usage.FACE_MILLING}
       >{Helper.Time.convertSecondsToHHMMSS(props.record.usage.FACE_MILLING)}</span
     >
-    <span class="text-accent-500" class:opacity-40={!props.record.usage.FACE_MILLING}
-      >{Helper.Time.convertSecondsToHHMMSS(
-        props.record.durability.FACE_MILLING * 60,
-      )}</span
-    >
+    {#if !isGroup}
+      <span class="text-accent-500" class:opacity-40={!props.record.usage.FACE_MILLING}
+        >{Helper.Time.convertSecondsToHHMMSS(
+          props.record.durability.FACE_MILLING * 60,
+        )}</span
+      >
+    {/if}
   </div>
   <div
     class="eng flex h-full w-40 shrink-0 flex-col justify-center border-b border-l border-zinc-200/50 px-4"
-    class:bg-rose-50={props.record.usage.SEMI_FINISH &&
+    class:bg-rose-50={!isGroup &&
+      props.record.usage.SEMI_FINISH &&
       !props.record.durability.SEMI_FINISH}
-    class:bg-accent-50={props.record.usage.SEMI_FINISH &&
+    class:bg-accent-50={!isGroup &&
+      props.record.usage.SEMI_FINISH &&
       props.record.durability.SEMI_FINISH}
   >
     <span class:opacity-40={!props.record.usage.SEMI_FINISH}
       >{Helper.Time.convertSecondsToHHMMSS(props.record.usage.SEMI_FINISH)}</span
     >
-    <span class="text-accent-500" class:opacity-40={!props.record.usage.SEMI_FINISH}
-      >{Helper.Time.convertSecondsToHHMMSS(
-        props.record.durability.SEMI_FINISH * 60,
-      )}</span
-    >
+    {#if !isGroup}
+      <span class="text-accent-500" class:opacity-40={!props.record.usage.SEMI_FINISH}
+        >{Helper.Time.convertSecondsToHHMMSS(
+          props.record.durability.SEMI_FINISH * 60,
+        )}</span
+      >
+    {/if}
   </div>
   <div
     class="eng flex h-full w-36 shrink-0 flex-col justify-center border-b border-l border-zinc-200/50 px-4"
-    class:bg-rose-50={props.record.usage.FINISH && !props.record.durability.FINISH}
-    class:bg-accent-50={props.record.usage.FINISH && props.record.durability.FINISH}
+    class:bg-rose-50={!isGroup &&
+      props.record.usage.FINISH &&
+      !props.record.durability.FINISH}
+    class:bg-accent-50={!isGroup &&
+      props.record.usage.FINISH &&
+      props.record.durability.FINISH}
   >
     <span class:opacity-40={!props.record.usage.FINISH}
       >{Helper.Time.convertSecondsToHHMMSS(props.record.usage.FINISH)}</span
     >
-    <span class="text-accent-500" class:opacity-40={!props.record.usage.FINISH}
-      >{Helper.Time.convertSecondsToHHMMSS(props.record.durability.FINISH * 60)}</span
-    >
+    {#if !isGroup}
+      <span class="text-accent-500" class:opacity-40={!props.record.usage.FINISH}
+        >{Helper.Time.convertSecondsToHHMMSS(props.record.durability.FINISH * 60)}</span
+      >
+    {/if}
   </div>
   <div
     class="eng flex h-full w-36 shrink-0 flex-col justify-center border-b border-l border-zinc-200/50 px-4"
@@ -471,85 +451,6 @@
             class:animate-wiggle={isRegisterFormTainted}
             type="submit"
             disabled={!isRegisterFormTainted}>{registered ? 'ویرایش' : 'ثبت'}</button
-          >
-          <button
-            class="rounded-xl bg-zinc-500 px-4 py-2 text-sm text-white duration-100 hover:bg-zinc-700"
-            onclick={closeRegisterWindow}>لغو</button
-          >
-        </div>
-      </form>
-    </div>
-  </Overlay>
-{/if}
-
-{#if updatingGroup}
-  <Overlay>
-    <div
-      class="flex w-1/2 flex-col rounded-xl bg-white p-6 text-sm shadow-sm"
-      use:onOutClick={closeRegisterWindow}
-    >
-      <h2 class="mb-4 flex items-center gap-1.5 text-base">
-        <iconify-icon
-          class="text-2xl"
-          icon="material-symbols-light:lab-profile-outline-rounded"
-        ></iconify-icon>
-        <div>
-          ویرایش اطلاعات برای گروه :
-          <span class="eng font-bold">{props.record.name}</span>
-        </div>
-      </h2>
-      <form
-        class="contents"
-        method="post"
-        action="?/updateGroup"
-        use:updateGroupFormEnhance
-      >
-        <h3 class="mb-3 font-semibold">عمر گروه در عملیات :</h3>
-        <div class="grid grid-cols-5 gap-4">
-          <NumberInput
-            label="Rough"
-            error={!!$updateGroupFormErrors.durability?.rough?.length}
-            bind:value={$updateGroupForm!.durability!.rough}
-          />
-          <NumberInput
-            label="Drilling"
-            error={!!$updateGroupFormErrors.durability?.drilling?.length}
-            bind:value={$updateGroupForm!.durability!.drilling}
-          />
-          <NumberInput
-            label="Face Milling"
-            error={!!$updateGroupFormErrors.durability?.faceMilling?.length}
-            bind:value={$updateGroupForm!.durability!.faceMilling}
-          />
-          <NumberInput
-            label="Semi-Finish"
-            error={!!$updateGroupFormErrors.durability?.semiFinish?.length}
-            bind:value={$updateGroupForm!.durability!.semiFinish}
-          />
-          <NumberInput
-            label="Finish"
-            error={!!$updateGroupFormErrors.durability?.finish?.length}
-            bind:value={$updateGroupForm!.durability!.finish}
-          />
-          <PriceInput
-            error={!!$updateGroupFormErrors.price?.length}
-            bind:value={$updateGroupForm!.price!}
-          />
-        </div>
-
-        <div class="mt-4 flex gap-3">
-          <button
-            class="rounded-xl bg-accent-500 px-4 py-2 text-sm text-white duration-100 animate-infinite hover:bg-accent-700 disabled:cursor-not-allowed disabled:!bg-accent-300 disabled:hover:!bg-accent-300"
-            class:animate-wiggle={isUpdateGroupFormTainted}
-            type="submit"
-            disabled={!isUpdateGroupFormTainted}>ویرایش</button
-          >
-          <button
-            class="rounded-xl bg-rose-500 px-4 py-2 text-sm text-white duration-100 animate-infinite hover:bg-rose-700 disabled:cursor-not-allowed disabled:!bg-rose-300 disabled:hover:!bg-accent-300"
-            type="button"
-            onclick={async () => {
-              await deleteGroup();
-            }}>حذف گروه و نمایش مجدد ابزار</button
           >
           <button
             class="rounded-xl bg-zinc-500 px-4 py-2 text-sm text-white duration-100 hover:bg-zinc-700"

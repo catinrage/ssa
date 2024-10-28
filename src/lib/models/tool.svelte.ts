@@ -81,7 +81,19 @@ export class ModelSetupSheetTool {
 }
 
 export class ModelSetupSheetToolGroup extends ModelSetupSheetTool {
-  tools: ModelSetupSheetTool[] = [];
+  tools: ModelSetupSheetTool[] = $state([]);
+
+  public need: number | undefined = $derived.by(() => {
+    let need = 0;
+    for (const tool of this.tools) {
+      console.log(tool.name, tool.need);
+      if (tool.need === undefined) {
+        return undefined;
+      }
+      need += tool.need;
+    }
+    return Number(need.toFixed(4));
+  });
 
   addTool(tool: ModelSetupSheetTool) {
     for (const operation in tool.usage) {

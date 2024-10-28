@@ -79,7 +79,7 @@ export class ProjectManager {
         if (toolGroup.tools.length) {
           mergedSetupSheet.tools.push(toolGroup);
           toolGroup.tools.forEach((tool) => {
-            mergedSetupSheet.tools = mergedSetupSheet.tools.filter((t) => t !== tool);
+            // mergedSetupSheet.tools = mergedSetupSheet.tools.filter((t) => t !== tool);
           });
         }
       });

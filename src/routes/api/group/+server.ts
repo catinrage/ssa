@@ -16,7 +16,6 @@ export async function POST({ request }) {
       durability: true,
     },
   });
-  console.log(firstTool);
 
   await prisma.group.create({
     data: {
