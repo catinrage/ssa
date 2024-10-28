@@ -1,0 +1,685 @@
+export const DATA = {
+  END3Z4S18C8D4L50_F: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 70,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 240000,
+    diameter: 3,
+  },
+  CHAMFER10Z4: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 1000,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 400000,
+    diameter: 10,
+  },
+  END12Z6: {
+    durability: {
+      ROUGH: 700,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 1800000,
+    diameter: 12,
+  },
+  END10Z4: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 100,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 700000,
+    diameter: 10,
+  },
+  DRILL8: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 120,
+      FACE_MILLING: 0,
+    },
+    price: 150000,
+    diameter: 8,
+  },
+  BN6Z2U: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 200,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 0,
+    diameter: 6,
+  },
+  REAMER8C: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 100,
+      FACE_MILLING: 0,
+    },
+    price: 600000,
+    diameter: 8,
+  },
+  BN6Z2L: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 90,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 240000,
+    diameter: 6,
+  },
+  END10Z6: {
+    durability: {
+      ROUGH: 700,
+      FINISH: 700,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 1400000,
+    diameter: 10,
+  },
+  'DRILL8.5C': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 120,
+      FACE_MILLING: 0,
+    },
+    price: 550000,
+    diameter: 8.5,
+  },
+  END12Z4C15L70: {
+    durability: {
+      ROUGH: 400,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 1000000,
+    diameter: 12,
+  },
+  'DRILL10.5C': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 150,
+      FACE_MILLING: 0,
+    },
+    price: 1100000,
+    diameter: 10.5,
+  },
+  'DRILL10.6C': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 0,
+    diameter: 10.6,
+  },
+  END3Z4S10C8D6L50_F: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 60,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 220000,
+    diameter: 3,
+  },
+  END5Z4L: {
+    durability: {
+      ROUGH: 200,
+      FINISH: 60,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 240000,
+    diameter: 5,
+  },
+  LNMU03D20: {
+    durability: {
+      ROUGH: 140,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 100000,
+    diameter: 20,
+  },
+  END10Z4L: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 120,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 800000,
+    diameter: 10,
+  },
+  DRILL10C6D: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 150,
+      FACE_MILLING: 0,
+    },
+    price: 650000,
+    diameter: 9.5,
+  },
+  BN6Z2: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 120,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 240000,
+    diameter: 6,
+  },
+  DRILL3CB8: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 45,
+      FACE_MILLING: 0,
+    },
+    price: 200000,
+    diameter: 3,
+  },
+  DRILL3C: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 45,
+      FACE_MILLING: 0,
+    },
+    price: 250000,
+    diameter: 3,
+  },
+  'DRILL6.6C3D': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 100,
+      FACE_MILLING: 0,
+    },
+    price: 400000,
+    diameter: 6.6,
+  },
+  END5Z4D6: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 100,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 240000,
+    diameter: 5,
+  },
+  'BN9.52': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 100,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 600000,
+    diameter: 9.52,
+  },
+  CHAMFER10Z4T: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 1000,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 400000,
+    diameter: 10,
+  },
+  END3Z4S10C8D6L50: {
+    durability: {
+      ROUGH: 180,
+      FINISH: 180,
+      SEMI_FINISH: 0,
+      DRILLING: 180,
+      FACE_MILLING: 0,
+    },
+    price: 220000,
+    diameter: 3,
+  },
+  'DRILL5.8C': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 90,
+      FACE_MILLING: 0,
+    },
+    price: 400000,
+    diameter: 5.8,
+  },
+  BN4Z2D6: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 200,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 250000,
+    diameter: 4,
+  },
+  'REAMER10.5': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 200,
+      FACE_MILLING: 0,
+    },
+    price: 700000,
+    diameter: 10.5,
+  },
+  CHAMFER8Z4: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 0,
+    diameter: 8,
+  },
+  END4Z4F: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 70,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 130000,
+    diameter: 4,
+  },
+  'DRILL7.8C5D': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 120,
+      FACE_MILLING: 0,
+    },
+    price: 450000,
+    diameter: 7.8,
+  },
+  END8Z4: {
+    durability: {
+      ROUGH: 200,
+      FINISH: 200,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 450000,
+    diameter: 8,
+  },
+  TIP8Z4R2: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 400,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 650000,
+    diameter: 8,
+  },
+  SPOT12A90: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 1000,
+      FACE_MILLING: 0,
+    },
+    price: 1000000,
+    diameter: 12,
+  },
+  RD10D40: {
+    durability: {
+      ROUGH: 140,
+      FINISH: 140,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 140,
+    },
+    price: 70000,
+    diameter: 40,
+  },
+  REAMER6C: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 100,
+      FACE_MILLING: 0,
+    },
+    price: 400000,
+    diameter: 6,
+  },
+  END3Z4S18C8D4L50: {
+    durability: {
+      ROUGH: 100,
+      FINISH: 100,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 240000,
+    diameter: 3,
+  },
+  AP10D50: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 100,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 300000,
+    diameter: 50,
+  },
+  END8Z4L100: {
+    durability: {
+      ROUGH: 200,
+      FINISH: 200,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 700000,
+    diameter: 8,
+  },
+  DRILL13C: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 200,
+      FACE_MILLING: 0,
+    },
+    price: 1200000,
+    diameter: 10,
+  },
+  END4Z4: {
+    durability: {
+      ROUGH: 200,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 130000,
+    diameter: 4,
+  },
+  'DRILL10.3C3D': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 150,
+      FACE_MILLING: 0,
+    },
+    price: 1100000,
+    diameter: 10.3,
+  },
+  BN12Z2: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 600,
+      FACE_MILLING: 0,
+    },
+    price: 450000,
+    diameter: 12,
+  },
+  DRILL8L: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 60,
+      FACE_MILLING: 0,
+    },
+    price: 250000,
+    diameter: 8,
+  },
+  END5Z4: {
+    durability: {
+      ROUGH: 300,
+      FINISH: 200,
+      SEMI_FINISH: 200,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 240000,
+    diameter: 5,
+  },
+  AP10D20: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 100,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 140000,
+    diameter: 20,
+  },
+  HF10: {
+    durability: {
+      ROUGH: 2000,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 700000,
+    diameter: 10,
+  },
+  DRILL5C: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 80,
+      FACE_MILLING: 0,
+    },
+    price: 400000,
+    diameter: 5,
+  },
+  END10Z6L: {
+    durability: {
+      ROUGH: 700,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 1400000,
+    diameter: 10,
+  },
+  RD10D63: {
+    durability: {
+      ROUGH: 200,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 200,
+    },
+    price: 100000,
+    diameter: 63,
+  },
+  END10Z6F: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 300,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 1400000,
+    diameter: 10,
+  },
+  END5Z4F: {
+    durability: {
+      ROUGH: 60,
+      FINISH: 60,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 240000,
+    diameter: 5,
+  },
+  END6Z4: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 90,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 200000,
+    diameter: 6,
+  },
+  'DRILL5.5C': {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 70,
+      FACE_MILLING: 0,
+    },
+    price: 300000,
+    diameter: 5.5,
+  },
+  DRILL9C: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 0,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 0,
+    diameter: 9,
+  },
+  END8Z4L: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 300,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 450000,
+    diameter: 8,
+  },
+  END4Z4S11C11D6: {
+    durability: {
+      ROUGH: 200,
+      FINISH: 200,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 130000,
+    diameter: 4,
+  },
+  BN2Z4: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 200,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 220000,
+    diameter: 2,
+  },
+  END8Z4F: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 100,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 450000,
+    diameter: 8,
+  },
+  BN8Z2: {
+    durability: {
+      ROUGH: 0,
+      FINISH: 200,
+      SEMI_FINISH: 0,
+      DRILLING: 0,
+      FACE_MILLING: 0,
+    },
+    price: 450000,
+    diameter: 8,
+  },
+} as {
+  [key in string]: {
+    durability: {
+      ROUGH: number;
+      FINISH: number;
+      SEMI_FINISH: number;
+      DRILLING: number;
+      FACE_MILLING: number;
+    };
+    price: number;
+    diameter: number;
+  };
+};

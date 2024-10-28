@@ -1,0 +1,131 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Setting {
+  id String @id @default(uuid())
+
+  name  String @unique
+  value String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Operation {
+  id String @id @default(uuid())
+
+  name  OperationEnum @unique
+  flags String[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model SetupSheet {
+  id String @id @default(uuid())
+
+  name     String
+  fileName String
+  content  String
+  ignored  Boolean @default(false)
+  scale    Float   @default(1)
+
+  project   Project @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  projectId String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Project {
+  id String @id @default(uuid())
+
+  name                    String
+  description             String
+  scale                   Float                    @default(1)
+  setupSheets             SetupSheet[]
+  toolsSettingsForProject ToolSettingsForProject[]
+  groups                  Group[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model ToolSettingsForProject {
+  id String @id @default(uuid())
+
+  tool       Tool                @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  project    Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  durability OperationTimeStats?
+
+  toolId    String
+  projectId String
+  groupId   String?
+}
+
+model Tool {
+  id String @id @default(uuid())
+
+  name                    String                   @unique
+  diameter                Float
+  durability              OperationTimeStats?
+  price                   Float                    @default(0)
+  toolSettingsForProjects ToolSettingsForProject[]
+  groups                  Group[]
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+model Group {
+  id String @id @default(uuid())
+
+  name       String
+  diameter   Float
+  durability OperationTimeStats?
+  price      Float               @default(0)
+  project    Project             @relation(fields: [projectId], references: [id], onDelete: Cascade)
+  tools      Tool[]
+
+  projectId String
+
+  @@unique([projectId, name])
+}
+
+model OperationTimeStats {
+  id String @id @default(uuid())
+
+  tool                   Tool?                   @relation(fields: [toolId], references: [id], onDelete: Cascade)
+  group                  Group?                  @relation(fields: [groupId], references: [id], onDelete: Cascade)
+  toolSettingsForProject ToolSettingsForProject? @relation(fields: [toolSettingsForProjectId], references: [id], onDelete: Cascade)
+
+  toolId                   String? @unique
+  groupId                  String? @unique
+  toolSettingsForProjectId String? @unique
+
+  rough       Int @default(0)
+  finish      Int @default(0)
+  semiFinish  Int @default(0)
+  drilling    Int @default(0)
+  faceMilling Int @default(0)
+}
+
+enum OperationEnum {
+  ROUGH
+  FINISH
+  SEMI_FINISH
+  DRILLING
+  FACE_MILLING
+}
