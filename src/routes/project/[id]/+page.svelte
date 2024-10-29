@@ -207,6 +207,17 @@
       <iconify-icon class="text-base" icon="file-icons:microsoft-project"></iconify-icon>
       <span>{data.project?.name}</span>
     </div>
+    <button
+      aria-label="home"
+      class="flex items-center gap-1.5 text-sm duration-100 hover:scale-110"
+      class:text-zinc-400={!showingSetupSheetMenu}
+      onclick={() => {
+        showingSetupSheetMenu = !showingSetupSheetMenu;
+      }}
+    >
+      <iconify-icon class="text-xl" icon="material-symbols-light:list-alt-outline"
+      ></iconify-icon>
+    </button>
     <a
       aria-label="home"
       class="flex items-center gap-1.5 text-sm duration-100 hover:scale-110"
@@ -215,7 +226,12 @@
       <iconify-icon class="text-base" icon="proicons:home"></iconify-icon>
     </a>
   </div>
-  <div class="col-span-6 flex flex-col gap-4 md:col-span-5">
+  <div
+    class="col-span-6 flex flex-col gap-4 md:col-span-5"
+    class:w-0={!showingSetupSheetMenu}
+    class:overflow-hidden={!showingSetupSheetMenu}
+    class:hidden={!showingSetupSheetMenu}
+  >
     <div class="flex items-center gap-1.5 text-lg font-bold">
       <iconify-icon class="text-3xl" icon="material-symbols-light:list-alt"
       ></iconify-icon>
@@ -285,7 +301,11 @@
       {/if}
     </div>
   </div>
-  <div class="col-span-18 flex h-full flex-col gap-4 md:col-span-19">
+  <div
+    class="col-span-24 flex h-full flex-col gap-4 md:col-span-19"
+    class:!col-span-24={!showingSetupSheetMenu}
+    class:md:!col-span-24={!showingSetupSheetMenu}
+  >
     <div class="flex items-center text-lg">
       <div class="flex gap-1.5 font-bold">
         <iconify-icon class="text-3xl" icon="material-symbols-light:table-view-rounded"
