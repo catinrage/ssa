@@ -17,7 +17,6 @@
   import { zod } from 'sveltekit-superforms/adapters';
   import PriceInput from './inputs/PriceInput.svelte';
   import NumberInput from './inputs/NumberInput.svelte';
-  import { updateGroupSchema } from '$lib/schemas/group/update';
   import { invalidateAll } from '$app/navigation';
   import { getConfirmToastManager } from '$lib/managers/confirmToastManager.svelte';
 

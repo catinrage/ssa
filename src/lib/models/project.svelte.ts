@@ -6,7 +6,6 @@ import { SSAErrorUnknownOperation } from '$lib/error';
 import { browser } from '$app/environment';
 import { untrack } from 'svelte';
 import { ModelSetupSheetTool, ModelSetupSheetToolGroup } from './tool.svelte';
-import { invalidateAll } from '$app/navigation';
 
 export type ProjectManagerSortOptions = {
   order: 'asc' | 'desc';
