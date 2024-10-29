@@ -105,7 +105,9 @@
 
   const totalCost = $derived.by(() => {
     let sum = 0;
-    for (const tool of projectManager.mergedSetupSheet?.tools ?? []) {
+    for (const tool of projectManager.mergedSetupSheet?.tools.filter(
+      (tool) => !tool.hidden,
+    ) ?? []) {
       sum += tool.cost ?? 0;
     }
     return Math.floor(sum);
@@ -124,7 +126,9 @@
       _: number;
     };
 
-    for (const tool of projectManager.mergedSetupSheet?.tools ?? []) {
+    for (const tool of projectManager.mergedSetupSheet?.tools.filter(
+      (tool) => !tool.hidden,
+    ) ?? []) {
       let time = 0;
       (Object.keys(tool.usage) as Array<keyof typeof tool.usage>).forEach((key) => {
         if (tool.usage[key]) {
