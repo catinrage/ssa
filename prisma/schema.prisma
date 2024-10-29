@@ -55,6 +55,7 @@ model Project {
   name                    String
   description             String
   scale                   Float                    @default(1)
+  quantity                Int                      @default(1)
   setupSheets             SetupSheet[]
   toolsSettingsForProject ToolSettingsForProject[]
   groups                  Group[]
