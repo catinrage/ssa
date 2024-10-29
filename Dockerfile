@@ -53,8 +53,4 @@ COPY --from=build /usr/src/app/build ./build
 EXPOSE 3000
 
 # Migrate the database, seed the database, and start the application.
-CMD ["sh", "-c", "
-  bun prisma migrate deploy && 
-  bun prisma db seed && 
-  bun start
-"]
+CMD ["sh", "-c", "bun prisma migrate deploy && bun prisma db seed && bun start"]
