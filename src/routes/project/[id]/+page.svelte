@@ -21,6 +21,7 @@
   const { data }: { data: PageData } = $props();
 
   let loading = $state(true);
+  let showingSetupSheetMenu = $state(true);
 
   onMount(() => {
     loading = false;
@@ -214,7 +215,7 @@
       <iconify-icon class="text-base" icon="proicons:home"></iconify-icon>
     </a>
   </div>
-  <div class="col-span-6 flex flex-col gap-4 md:col-span-5 print:hidden">
+  <div class="col-span-6 flex flex-col gap-4 md:col-span-5">
     <div class="flex items-center gap-1.5 text-lg font-bold">
       <iconify-icon class="text-3xl" icon="material-symbols-light:list-alt"
       ></iconify-icon>
@@ -284,9 +285,7 @@
       {/if}
     </div>
   </div>
-  <div
-    class="col-span-18 flex h-full flex-col gap-4 md:col-span-19 print:col-span-24 print:!text-xs"
-  >
+  <div class="col-span-18 flex h-full flex-col gap-4 md:col-span-19">
     <div class="flex items-center text-lg">
       <div class="flex gap-1.5 font-bold">
         <iconify-icon class="text-3xl" icon="material-symbols-light:table-view-rounded"
@@ -394,7 +393,7 @@
       {/if}
 
       <div
-        class="flex overflow-auto border-b-4 border-dashed bg-zinc-100 px-5 pr-14 text-base font-bold hide-scrollbar print:!overflow-visible"
+        class="flex overflow-auto border-b-4 border-dashed bg-zinc-100 px-5 pr-14 text-base font-bold hide-scrollbar"
         bind:this={tableHead}
         onscroll={syncTableBodyHorizontalScroll}
       >
@@ -668,7 +667,7 @@
         </button>
       </div>
       <div
-        class="relative flex grow basis-0 flex-col overflow-auto bg-gray-100 print:!overflow-visible"
+        class="relative flex grow basis-0 flex-col overflow-auto bg-gray-100"
         bind:this={tableBody}
         onscroll={syncTableHeadHorizontalScroll}
       >
