@@ -55,6 +55,7 @@ export class ModelSetupSheetTool {
   public sources: ModelSetupSheet[] = $state([]);
 
   public registered = $state(false);
+  public hidden = $state(false);
 
   constructor({ id, name, diameter }: Omit<SetupSheetToolProperties, 'usage'>) {
     this.id = id;

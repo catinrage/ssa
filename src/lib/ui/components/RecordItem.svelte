@@ -193,6 +193,7 @@
 
 <button
   class="flex h-20 min-w-max shrink-0 items-center bg-zinc-50 text-right text-sm hover:bg-zinc-100"
+  class:hidden={props.record.hidden}
   onclick={async () => {
     await propagateToolData(props.record.name);
     openRegisterWindow();

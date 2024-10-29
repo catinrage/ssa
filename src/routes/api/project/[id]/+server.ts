@@ -2,20 +2,17 @@ import prisma from '$prisma';
 import { json } from '@sveltejs/kit';
 
 export async function PATCH({ params, request }) {
-  const { name, description, scale } = (await request.json()) as {
+  const data = (await request.json()) as {
     name?: string;
     description?: string;
     scale?: number;
+    quantity?: number;
   };
   await prisma.project.update({
     where: {
       id: params.id,
     },
-    data: {
-      name,
-      description,
-      scale,
-    },
+    data,
   });
   return json({ success: true });
 }

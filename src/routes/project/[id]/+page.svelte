@@ -317,8 +317,35 @@
           <span>خروجی اکسل</span>
         </button>
         <div class="flex items-center gap-2 rounded-xl bg-zinc-100 px-3 py-1 text-xs">
-          <iconify-icon class="-ml-1 rotate-90 text-lg" icon="fluent:scale-fit-20-regular"
+          <iconify-icon class="-ml-1 text-lg" icon="fluent:text-word-count-24-regular"
           ></iconify-icon>
+          <span>تعداد :</span>
+          <input
+            dir="ltr"
+            class="eng w-8 bg-transparent px-1 text-center text-xs focus:outline-none"
+            type="number"
+            bind:value={projectManager.quantity}
+            min="1"
+            step="1"
+            oninput={(event) =>
+              projectManager.setQuantity(
+                Number((event.target as HTMLInputElement)?.value),
+              )}
+            onwheel={(event) => {
+              event.preventDefault();
+              if (event.deltaY < 0) {
+                (event.target as HTMLInputElement).stepUp();
+              } else {
+                (event.target as HTMLInputElement).stepDown();
+              }
+              projectManager.setQuantity(
+                Number((event.target as HTMLInputElement)?.value),
+              );
+            }}
+          />
+        </div>
+        <div class="flex items-center gap-2 rounded-xl bg-zinc-100 px-3 py-1 text-xs">
+          <iconify-icon class="-ml-1 text-lg" icon="hugeicons:discount"></iconify-icon>
           <span>ضریب کل :</span>
           <input
             dir="ltr"

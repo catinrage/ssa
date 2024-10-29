@@ -28,6 +28,7 @@ export type ProjectManagerSortOptions = {
 export type ProjectManagerData = {
   id: string;
   scale: number;
+  quantity: number;
   setupSheets: SetupSheet[];
   groups: Prisma.GroupGetPayload<{
     include: {
@@ -40,6 +41,7 @@ export type ProjectManagerData = {
 export class ProjectManager {
   public id: string;
   public scale: number = $state(1);
+  public quantity: number = $state(1);
   public sortOptions: ProjectManagerSortOptions = $state({
     column: 'none',
     order: 'asc',
@@ -52,7 +54,7 @@ export class ProjectManager {
     const mergedSetupSheet = new ModelSetupSheet();
     mergedSetupSheet.name = 'MERGED';
     for (const setupSheet of this.unIgnoredSetupSheets) {
-      mergedSetupSheet.merge(setupSheet, setupSheet.scale * this.scale);
+      mergedSetupSheet.merge(setupSheet, setupSheet.scale * this.scale * this.quantity);
     }
 
     untrack(() => {
@@ -78,7 +80,7 @@ export class ProjectManager {
         if (toolGroup.tools.length) {
           mergedSetupSheet.tools.push(toolGroup);
           toolGroup.tools.forEach((tool) => {
-            // mergedSetupSheet.tools = mergedSetupSheet.tools.filter((t) => t !== tool);
+            tool.hidden = true;
           });
         }
       });
@@ -89,10 +91,12 @@ export class ProjectManager {
   public groups: ProjectManagerData['groups'] = $state([]);
   public selectedTools: ModelSetupSheetTool[] = $state([]);
 
-  constructor({ id, setupSheets, groups, scale }: ProjectManagerData) {
+  constructor({ id, setupSheets, groups, scale, quantity }: ProjectManagerData) {
     this.id = id;
     this.groups = groups;
     this.scale = scale;
+    this.quantity = quantity;
+
     if (browser)
       for (const setupSheet of setupSheets) {
         const instance = this.loadSetupSheet(setupSheet.content, setupSheet.fileName);
@@ -221,6 +225,19 @@ export class ProjectManager {
     });
   }
 
+  async setQuantity(quantity: number) {
+    this.quantity = quantity;
+    await fetch(`/api/project/${this.id}`, {
+      method: 'PATCH',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        quantity,
+      }),
+    });
+  }
+
   sortBy(
     column: ProjectManagerSortOptions['column'],
     order: ProjectManagerSortOptions['order'],
@@ -292,16 +309,18 @@ export class ProjectManager {
   }
 
   exportToExcel() {
-    const records = this.mergedSetupSheet?.tools.map((tool) => {
-      return {
-        'نام ابزار': tool.name,
-        قطر: tool.diameter,
-        قیمت: Helper.Currency.formatCurrency(tool.price ?? 0) + ' تومان ',
-        نیاز: Number(tool.need),
-        'عمر نسبی': Number((1 / Number(tool.need)).toFixed(2)),
-        هزینه: tool.cost ? Helper.Currency.formatCurrency(tool.cost) + ' تومان ' : '-',
-      };
-    });
+    const records = this.mergedSetupSheet?.tools
+      .filter((tool) => !tool.hidden)
+      .map((tool) => {
+        return {
+          'نام ابزار': tool.name,
+          قطر: tool.diameter,
+          قیمت: Helper.Currency.formatCurrency(tool.price ?? 0) + ' تومان ',
+          نیاز: Number(tool.need),
+          'عمر نسبی': Number((1 / Number(tool.need)).toFixed(2)),
+          هزینه: tool.cost ? Helper.Currency.formatCurrency(tool.cost) + ' تومان ' : '-',
+        };
+      });
 
     if (!records) return;
 
