@@ -6,11 +6,12 @@ services:
       context: .
     environment:
       NODE_ENV: production
-      DATABASE_URL: 'postgresql://postgres:123456@postgres:5432/ssa?schema=public' # Use port 5432 here
+      DATABASE_URL: 'postgresql://postgres:123456@postgres:5432/ssa?schema=public'
     depends_on:
       - postgres
     ports:
       - 3001:3000
+    restart: unless-stopped
 
   postgres:
     image: postgres:14.1-alpine
@@ -20,6 +21,7 @@ services:
       POSTGRES_DB: ssa
     volumes:
       - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
 
 volumes:
   pgdata:
