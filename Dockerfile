@@ -52,9 +52,9 @@ COPY --from=build /usr/src/app/build ./build
 # Expose the port that the application listens on.
 EXPOSE 3000
 
-# Run the application using Bun.
+# Migrate the database, seed the database, and start the application.
 CMD ["sh", "-c", "
-  bun prisma db push && 
+  bun prisma migrate deploy && 
   bun prisma db seed && 
   bun start
 "]
