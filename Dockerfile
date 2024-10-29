@@ -2,7 +2,7 @@
 
 ################################################################################
 # Use Bun & Node image as the base image for all stages.
-FROM imbios/bun-node:22-slim as base
+FROM imbios/bun-node:22-slim AS base
 
 # Set working directory for all build stages.
 WORKDIR /usr/src/app
@@ -25,10 +25,10 @@ FROM deps AS build
 # Copy the rest of the source files into the image.
 COPY . .
 
-# Generate the Prisma client before running the build
+# Generate the Prisma client before running the build.
 RUN bun prisma generate
 
-# Run the build script
+# Run the build script.
 RUN bun run build
 
 ################################################################################
@@ -36,7 +36,7 @@ RUN bun run build
 FROM base AS final
 
 # Use production environment by default.
-ENV NODE_ENV production
+ENV NODE_ENV=production
 
 # Copy package.json and bun.lockb for reference.
 COPY package.json . 
@@ -53,4 +53,8 @@ COPY --from=build /usr/src/app/build ./build
 EXPOSE 3000
 
 # Run the application using Bun.
-CMD bun prisma db push && bun prisma db seed && bun start
+CMD ["sh", "-c", "
+  bun prisma db push && 
+  bun prisma db seed && 
+  bun start
+"]
