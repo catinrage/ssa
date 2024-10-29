@@ -49,8 +49,11 @@ COPY prisma ./prisma
 COPY --from=deps /usr/src/app/node_modules ./node_modules
 COPY --from=build /usr/src/app/build ./build
 
+# Make the prisma database deploy script executable.
+RUN chmod +x /usr/src/app/prisma/deploy.sh
+
 # Expose the port that the application listens on.
 EXPOSE 3000
 
 # Migrate the database, seed the database, and start the application.
-CMD ["sh", "-c", "bun prisma migrate deploy && bun prisma db seed && bun start"]
+CMD ["/bin/sh", "-c", "/usr/src/app/prisma/deploy.sh && bun start"]
