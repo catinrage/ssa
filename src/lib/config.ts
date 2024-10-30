@@ -27,6 +27,7 @@ export const FLAGS = {
     'TURBO_CZ',
     'S_TURBO',
     'IMT_',
+    'TSLOT',
   ],
   SEMI_FINISH: ['SEMI_', 'S_HSM'],
   FINISH: ['HSS', 'HSM', 'F_', 'P_', 'F3D', 'BN2Z2', 'FINISH'],
