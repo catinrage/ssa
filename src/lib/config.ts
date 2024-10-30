@@ -29,7 +29,7 @@ export const FLAGS = {
     'IMT_',
   ],
   SEMI_FINISH: ['SEMI_', 'S_HSM'],
-  FINISH: ['HSS', 'HSM', 'F_', 'P_', 'F3D', 'BN2Z2'],
+  FINISH: ['HSS', 'HSM', 'F_', 'P_', 'F3D', 'BN2Z2', 'FINISH'],
   DRILLING: ['D_', 'SPOT', 'REAMER'],
   FACE_MILLING: ['FM_'],
 } satisfies Record<OperationEnum, string[]>;
