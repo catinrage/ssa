@@ -30,7 +30,7 @@ export const FLAGS = {
     'TSLOT',
   ],
   SEMI_FINISH: ['SEMI_', 'S_HSM'],
-  FINISH: ['HSS', 'HSM', 'F_', 'P_', 'F3D', 'BN2Z2', 'FINISH'],
+  FINISH: ['HSS', 'HSM', 'F_', 'P_', 'F3D', 'BN2Z2', 'FINI'],
   DRILLING: ['D_', 'SPOT', 'REAMER', 'THM_DRILL'],
   FACE_MILLING: ['FM_'],
 } satisfies Record<OperationEnum, string[]>;
