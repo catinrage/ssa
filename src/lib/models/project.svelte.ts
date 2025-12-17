@@ -150,7 +150,10 @@ export class ProjectManager {
       setupSheet!.setId(result.id);
     } catch (error) {
       if (error instanceof SSAErrorUnknownOperation) {
-        console.log(error.data.operation);
+        console.error('Unsupported Operation Tag:', error.data.operation);
+        alert(
+          `خطا: برچسب عملیات نا‌شناخته در فایل "${fileName}": ${error.data.operation}`,
+        );
       }
     }
   }
