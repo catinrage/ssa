@@ -31,7 +31,7 @@
     "prettier": "^3.1.1",
     "prettier-plugin-svelte": "^3.1.2",
     "prettier-plugin-tailwindcss": "^0.6.8",
-    "prisma": "^5.21.1",
+    "prisma": "7.1.0-dev.5",
     "svelte": "^5.0.0-next.1",
     "svelte-adapter-bun": "^0.5.2",
     "svelte-check": "^4.0.0",
@@ -43,7 +43,8 @@
   "type": "module",
   "dependencies": {
     "@formkit/auto-animate": "^0.8.2",
-    "@prisma/client": "^5.21.1",
+    "@prisma/adapter-pg": "^7.1.0",
+    "@prisma/client": "7.1.0-dev.5",
     "@tailwindcss/container-queries": "^0.1.1",
     "iconify-icon": "^2.1.0",
     "reflect-metadata": "^0.2.2",
@@ -52,6 +53,7 @@
     "sveltekit-superforms": "^2.20.0",
     "tailwindcss-animated": "^1.1.2",
     "tippy.js": "^6.3.7",
+    "tsx": "^4.21.0",
     "vazirmatn": "^33.0.3",
     "xlsx": "^0.18.5",
     "zod": "^3.23.8"
