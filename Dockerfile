@@ -25,6 +25,10 @@ FROM deps AS build
 # Copy the rest of the source files into the image.
 COPY . .
 
+# Set a default value for DATABASE_URL to allow Prisma client generation.
+ARG DATABASE_URL=postgresql://dummy:dummy@localhost:5432/dummy
+ENV DATABASE_URL=$DATABASE_URL
+
 # Generate the Prisma client before running the build.
 RUN bun prisma generate
 
